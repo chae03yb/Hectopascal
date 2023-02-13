@@ -4,7 +4,7 @@ from nextcord.ext import commands
 from typing import Optional
 
 class Utillity(commands.Cog):
-    def __init__(self, client: commands.Bot):
+    def __init__(self, client: commands.Bot) -> None:
         self.client: commands.Bot = client
 
     def _calculate_fuel(self, small: int = 0, medium: int = 0, large: int = 0) -> float:
@@ -40,5 +40,5 @@ class Utillity(commands.Cog):
             f"fuel capacity: {self._calculate_fuel(type_small, type_medium, type_large)}"
         )
 
-def setup(client):
+def setup(client: commands.Bot) -> None:
     client.add_cog(Utillity(client))

@@ -1,9 +1,13 @@
 import nextcord
 from nextcord.ext import commands
 
-class ModuleManager(commands.Cog):
+class Bot(commands.Cog):
     def __init__(self, client: commands.Bot) -> None:
         self.client = client
+
+    @commands.Cog.listener()
+    async def on_ready(self) -> None:
+        print("bot ready")
 
     @commands.command(name="load-module")
     async def load_module(self, ctx: commands.Context, module: str) -> None:
@@ -17,7 +21,7 @@ class ModuleManager(commands.Cog):
     
     @commands.command(name="unload-module")
     async def unload_module(self, ctx: commands.Context, module: str) -> None:
-        if module == "ModuleManager":
+        if module == "Bot":
             await ctx.send("Can't unload this module")
             return
             
@@ -31,7 +35,7 @@ class ModuleManager(commands.Cog):
 
     @commands.command(name="reload-module")
     async def reload_module(self, ctx: commands.Context, module: str) -> None:
-        if module == "ModuleManager":
+        if module == "Bot":
             await ctx.send("Can't reload this module")
             return
             
@@ -43,5 +47,5 @@ class ModuleManager(commands.Cog):
         except commands.errors.ExtensionNotFound:
             await ctx.send("Extension not found.")
 
-def setup(client: commands.Bot):
-    client.add_cog(ModuleManager(client))
+def setup(client: commands.Bot) -> None:
+    client.add_cog(Bot(client))
